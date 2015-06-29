@@ -38,9 +38,7 @@ public class TopTrackExecutor {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        if (error != null) {
-
-                        }
+                        controller.processError();
                     }
                 });
     }

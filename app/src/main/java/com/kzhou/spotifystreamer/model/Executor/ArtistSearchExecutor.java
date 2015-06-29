@@ -37,11 +37,11 @@ public class ArtistSearchExecutor {
 
             @Override
             public void failure(RetrofitError error) {
+                controller.processError();
             }
         });
 
     }
-
 
     class ProcessResultTask extends AsyncTask<ArtistsPager, Void, ArrayList<ListItem>> {
         private ArrayList<ListItem> parseArtistListResults(ArtistsPager results) {

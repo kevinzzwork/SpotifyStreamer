@@ -13,4 +13,6 @@ public interface TopTrackController {
     void getTop10Tracks(String artistId);
 
     void setTopTrackResult(ArrayList<ListItem> results);
+
+    void processError();
 }

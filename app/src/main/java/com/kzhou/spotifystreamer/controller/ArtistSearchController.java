@@ -15,4 +15,6 @@ public interface ArtistSearchController {
     void listItemClicked(ListItem listItem);
 
     void setSearchResult(ArrayList<ListItem> artistList);
+
+    void processError();
 }

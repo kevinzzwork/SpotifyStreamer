@@ -35,6 +35,10 @@ public class TopTrackControllerImpl implements TopTrackController {
         } else {
             topTrackView.showListEmptyToast();
         }
+    }
 
+    @Override
+    public void processError() {
+        topTrackView.hideSearchProgressBar();
     }
 }

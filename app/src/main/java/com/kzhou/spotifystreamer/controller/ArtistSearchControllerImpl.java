@@ -42,4 +42,9 @@ public class ArtistSearchControllerImpl implements ArtistSearchController {
         searchArtistView.hideSearchProgressBar();
         searchArtistView.refreshArtistList(artistList);
     }
+
+    @Override
+    public void processError() {
+        searchArtistView.hideSearchProgressBar();
+    }
 }
