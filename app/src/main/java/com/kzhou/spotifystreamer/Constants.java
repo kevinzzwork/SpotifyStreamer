@@ -11,6 +11,7 @@ import java.util.Map;
 public class Constants {
     public static final String ARTIST_ID_KEY = "ArtistId";
     public static final String ARTIST_NAME_KEY = "ArtistName";
+    public static final String SAVED_INSTANCE_STATE = "savedInstanceState";
     public static final Map<String, Object> countryCodeMap;
     static
     {

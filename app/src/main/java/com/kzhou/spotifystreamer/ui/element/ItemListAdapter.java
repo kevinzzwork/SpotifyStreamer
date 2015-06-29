@@ -10,9 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kzhou.spotifystreamer.R;
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +24,12 @@ import java.util.List;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ArtistViewHolder> {
     private final LayoutInflater layoutInflater;
     private final Context context;
-    private List<ListItem> listItems;
+    private ArrayList<ListItem> listItems;
     private ListItemClickedListener itemClickedListener;
     private boolean isShowSubName;
 
     public ItemListAdapter(Context context,
-                           List<ListItem> listItems,
+                           ArrayList<ListItem> listItems,
                            ListItemClickedListener itemClickedListener,
                            boolean isShowSubName) {
         this.context = context;
@@ -42,18 +43,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Artist
         return listItems.get(position);
     }
 
-    public void setArtistItems(List<ListItem> listItems) {
+    public void setItems(ArrayList<ListItem> listItems) {
         this.listItems = listItems;
     }
 
-    public void refreshListByData(List<ListItem> listItems) {
-        setArtistItems(listItems);
+    public ArrayList<ListItem> getItems() {
+        return this.listItems;
+    }
+
+    public void refreshListByData(ArrayList<ListItem> listItems) {
+        setItems(listItems);
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return listItems.size();
+        return listItems == null ? 0 : listItems.size();
     }
 
     @Override

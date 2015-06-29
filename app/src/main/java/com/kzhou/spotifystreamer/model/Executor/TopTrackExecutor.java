@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.kzhou.spotifystreamer.Constants;
 import com.kzhou.spotifystreamer.controller.TopTrackController;
 import com.kzhou.spotifystreamer.model.SpotifyProcess;
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 
 import java.util.ArrayList;
 

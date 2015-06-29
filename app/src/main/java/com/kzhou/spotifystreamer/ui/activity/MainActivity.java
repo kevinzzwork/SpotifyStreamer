@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kzhou.spotifystreamer.R;
-import com.kzhou.spotifystreamer.ui.fragment.SearchArtistFragment;
+import com.kzhou.spotifystreamer.ui.fragment.ArtistSearchFragment;
 
 /**
  * User: Kevin
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, new SearchArtistFragment());
+            transaction.replace(R.id.container, new ArtistSearchFragment());
             transaction.commitAllowingStateLoss();
         }
     }
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     }
 
     public void shouldDisplayHomeUp(){
-        boolean canback = getSupportFragmentManager().getBackStackEntryCount()>0;
+        boolean canback = getSupportFragmentManager().getBackStackEntryCount() > 0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(canback);
     }
 

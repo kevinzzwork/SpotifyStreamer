@@ -22,7 +22,7 @@ import com.kzhou.spotifystreamer.Constants;
 import com.kzhou.spotifystreamer.R;
 import com.kzhou.spotifystreamer.controller.TopTrackController;
 import com.kzhou.spotifystreamer.controller.TopTrackControllerImpl;
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 import com.kzhou.spotifystreamer.ui.activity.MainActivity;
 import com.kzhou.spotifystreamer.ui.element.ItemListAdapter;
 import com.kzhou.spotifystreamer.ui.element.ListItemClickedListener;
@@ -56,17 +56,34 @@ public class TopTrackFragment extends Fragment implements ListItemClickedListene
 
         ButterKnife.inject(this, rootView);
         controller = new TopTrackControllerImpl(this);
+
+        ArrayList<ListItem> listItems = new ArrayList<>();
+        if (savedInstanceState != null) {
+            artistId = savedInstanceState.getString(Constants.ARTIST_ID_KEY);
+            artistName = savedInstanceState.getString(Constants.ARTIST_NAME_KEY);
+            listItems = savedInstanceState.getParcelableArrayList(Constants.SAVED_INSTANCE_STATE);
+        }
+        initTrackList(listItems);
         initArgument();
-        initTrackList();
         setupActionBar();
 
         return rootView;
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (itemListAdapter != null) {
+            outState.putString(Constants.ARTIST_ID_KEY, artistId);
+            outState.putString(Constants.ARTIST_NAME_KEY, artistName);
+            outState.putParcelableArrayList(Constants.SAVED_INSTANCE_STATE, itemListAdapter.getItems());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (!TextUtils.isEmpty(artistId)) {
+        if (!TextUtils.isEmpty(artistId) && savedInstanceState == null) {
             controller.getTop10Tracks(artistId);
         }
     }
@@ -88,16 +105,16 @@ public class TopTrackFragment extends Fragment implements ListItemClickedListene
 
     private void initArgument() {
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if (bundle != null && artistId == null && artistName == null) {
             artistId = bundle.getString(Constants.ARTIST_ID_KEY);
             artistName = bundle.getString(Constants.ARTIST_NAME_KEY);
         }
     }
 
-    private void initTrackList() {
+    private void initTrackList(ArrayList<ListItem> items) {
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), NUM_COLUMN, GridLayoutManager.VERTICAL, false);
         trackList.setLayoutManager(layoutManager);
-        itemListAdapter = new ItemListAdapter(getActivity(), new ArrayList<ListItem>(), this, true);
+        itemListAdapter = new ItemListAdapter(getActivity(), items, this, true);
         trackList.setAdapter(itemListAdapter);
         trackList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
     }

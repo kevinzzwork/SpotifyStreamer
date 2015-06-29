@@ -2,7 +2,7 @@ package com.kzhou.spotifystreamer.ui.view;
 
 import android.content.Context;
 
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package com.kzhou.spotifystreamer.controller;
 
 import com.kzhou.spotifystreamer.model.Executor.TopTrackExecutor;
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 import com.kzhou.spotifystreamer.ui.view.TopTrackView;
 
 import java.util.ArrayList;

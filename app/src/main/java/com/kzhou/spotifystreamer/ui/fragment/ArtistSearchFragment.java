@@ -24,7 +24,7 @@ import com.kzhou.spotifystreamer.Constants;
 import com.kzhou.spotifystreamer.R;
 import com.kzhou.spotifystreamer.controller.ArtistSearchController;
 import com.kzhou.spotifystreamer.controller.ArtistSearchControllerImpl;
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 import com.kzhou.spotifystreamer.ui.activity.MainActivity;
 import com.kzhou.spotifystreamer.ui.element.ItemListAdapter;
 import com.kzhou.spotifystreamer.ui.element.ListItemClickedListener;
@@ -42,7 +42,7 @@ import butterknife.InjectView;
  * Time: 9:33 PM
  */
 
-public class SearchArtistFragment extends Fragment implements ListItemClickedListener, SearchArtistView {
+public class ArtistSearchFragment extends Fragment implements ListItemClickedListener, SearchArtistView {
     private static final int NUM_COLUMN = 1;
     private ArtistSearchController controller;
     private ItemListAdapter itemListAdapter;
@@ -59,10 +59,23 @@ public class SearchArtistFragment extends Fragment implements ListItemClickedLis
         ButterKnife.inject(this, rootView);
         controller = new ArtistSearchControllerImpl(this);
         initArtistSearchField();
-        initArtistList();
+
+        ArrayList<ListItem> listItems = new ArrayList<>();
+        if (savedInstanceState != null) {
+            listItems = savedInstanceState.getParcelableArrayList(Constants.SAVED_INSTANCE_STATE);
+        }
+        initArtistList(listItems);
         setupActionBar();
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (itemListAdapter != null) {
+            outState.putParcelableArrayList(Constants.SAVED_INSTANCE_STATE, itemListAdapter.getItems());
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -97,10 +110,10 @@ public class SearchArtistFragment extends Fragment implements ListItemClickedLis
         });
     }
 
-    private void initArtistList() {
+    private void initArtistList(ArrayList<ListItem> items) {
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), NUM_COLUMN, GridLayoutManager.VERTICAL, false);
         artistList.setLayoutManager(layoutManager);
-        itemListAdapter = new ItemListAdapter(getActivity(), new ArrayList<ListItem>(), this, false);
+        itemListAdapter = new ItemListAdapter(getActivity(), items, this, false);
         artistList.setAdapter(itemListAdapter);
         artistList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
     }

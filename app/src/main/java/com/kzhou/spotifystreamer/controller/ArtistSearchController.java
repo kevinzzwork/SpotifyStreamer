@@ -1,6 +1,6 @@
 package com.kzhou.spotifystreamer.controller;
 
-import com.kzhou.spotifystreamer.model.view.ListItem;
+import com.kzhou.spotifystreamer.model.data.ListItem;
 
 import java.util.ArrayList;
 
